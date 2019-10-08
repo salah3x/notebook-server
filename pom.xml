@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.github.salah3x</groupId>
     <artifactId>notebook-server</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1.0</version>
     <name>notebook-server</name>
     <description>A simple notebook server that can execute pieces of code in an interpreter</description>
     
@@ -31,6 +31,7 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <graal-sdk.version>19.2.0</graal-sdk.version>
     </properties>
 
     <dependencies>
@@ -55,7 +56,7 @@
         <dependency>
             <groupId>org.graalvm.sdk</groupId>
             <artifactId>graal-sdk</artifactId>
-            <version>19.2.0</version>
+            <version>${graal-sdk.version}</version>
         </dependency>
 
         <dependency>
