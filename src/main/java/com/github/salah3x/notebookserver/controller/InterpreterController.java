@@ -2,16 +2,23 @@ package com.github.salah3x.notebookserver.controller;
 
 import com.github.salah3x.notebookserver.controller.dtos.InterpreterRequest;
 import com.github.salah3x.notebookserver.controller.dtos.InterpreterResponse;
+import com.github.salah3x.notebookserver.exception.InterpreterException;
+import com.github.salah3x.notebookserver.service.InterpreterService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin("*")
+@RequiredArgsConstructor
 public class InterpreterController {
+
+    private final InterpreterService service;
 
     /**
      * Remote code execution endpoint.
@@ -32,6 +39,19 @@ public class InterpreterController {
         String code = request.getCode().substring(request.getCode().indexOf('\n') + 1);
         String lang = request.getCode().substring(1, request.getCode().indexOf('\n'));
         String sessionId = request.getSessionId();
-        return null;
+
+        InterpreterResponse response = new InterpreterResponse();
+        if (sessionId == null) {
+            sessionId = UUID.randomUUID().toString();
+            response.setSessionId(sessionId);
+        }
+        try {
+            response.setResult(service.execute(lang, code, sessionId));
+            response.setSuccess(true);
+        } catch (InterpreterException e) {
+            response.setResult(e.getMessage());
+            response.setSuccess(false);
+        }
+        return response;
     }
 }
