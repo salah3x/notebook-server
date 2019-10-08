@@ -1,16 +1,8 @@
-<div align="center">
-  <h2>Notebook Server</h2>
-
-![GitHub release](https://img.shields.io/github/release/salah3x/notebook-server.svg?color=%23f441be)
-![GitHub](https://img.shields.io/github/license/salah3x/notebook-server.svg?color=%232196F3)
-
----
+# Notebook Server ![GitHub release](https://img.shields.io/github/release/salah3x/notebook-server.svg?color=%23f441be) ![GitHub](https://img.shields.io/github/license/salah3x/notebook-server.svg?color=%232196F3)
 
 A simple notebook server that can execute pieces of code in an interpreter using Spring Boot and GraalVM.
 
 See also [notebook-ui](https://github.com/salah3x/notebook-ui).
-
-</div>
 
 ---
 
@@ -18,17 +10,25 @@ See also [notebook-ui](https://github.com/salah3x/notebook-ui).
 
 - GraalVM must be installed in order to be able to build the project, follow the [Getting Started with GraalVM](https://www.graalvm.org/docs/getting-started/).
 - You can use the Graal Updater to install language packs for Python, R, and Ruby.
-  > `$ gu install python`
+
+  `$ gu install python`
+
 - Install latest version of [Maven](https://maven.apache.org/).
 
 ## Installation
 
 - First clone the repo:
-  > `$ git clone git@github.com:salah3x/notebook-server.git`
+
+  `$ git clone git@github.com:salah3x/notebook-server.git`
+
 - Build the project:
-  > `$ mvn package -DskipTests`
+
+  `$ mvn package -DskipTests`
+
 - Run the jar file:
-  > `$ java -jar target/notebook-server-0.0.1-SNAPSHOT.jar`
+
+  `$ java -jar target/notebook-server-0.0.1-SNAPSHOT.jar`
+
 - If all is okay, you should be able to interact with the server in [http://localhost:8080/](http://localhost:8080/)
 
 ## Usage
@@ -65,6 +65,12 @@ See also [notebook-ui](https://github.com/salah3x/notebook-ui).
   ```
 
   > See [InterpreterResponse](https://github.com/salah3x/notebook-server/blob/master/src/main/java/com/github/salah3x/notebookserver/controller/dtos/InterpreterResponse.java) for more info about these fields.
+
+# Interpreter response codes:
+
+- 200 OK: The interpreter API returns a 200 OK response code in case of success. The response will have the format described above and might containg erros in case of execution failure.
+- 400 BAD_REQUEST: The API might return a 400 BAD_REQUEST as response code in case the request doesnt follow the correct format.
+- 500 INTERNAL_SERVER_ERROR: If this happens, it means that something is wrong with the server, just wait for a while and try again.
 
 ## Further help
 
