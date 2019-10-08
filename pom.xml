@@ -13,6 +13,14 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>notebook-server</name>
     <description>A simple notebook server that can execute pieces of code in an interpreter</description>
+    
+    <developers>
+        <developer>
+            <name>Salah E. Loukili</name>
+            <email>salah.loukili@gmail.com</email>
+            <url>http://github.com/salah3x</url>
+        </developer>
+    </developers>
 
     <properties>
         <java.version>1.8</java.version>
