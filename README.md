@@ -19,7 +19,7 @@ See also [notebook-ui](https://github.com/salah3x/notebook-ui).
 
 - First clone the repo:
 
-  `$ git clone git@github.com:salah3x/notebook-server.git`
+  `$ git clone git@github.com:salah3x/notebook-server.git && cd notebook-server`
 
 - Build the project:
 
@@ -51,8 +51,8 @@ See also [notebook-ui](https://github.com/salah3x/notebook-ui).
   >
   > ```
   > %js
-  > 1 + 1;
-  > "Hello ".concat("world!");
+  > console.log(1 + 1);
+  > console.log("Hello world!");
   > ```
 - The server returns a json object as response. The response have the following format:
 
@@ -66,7 +66,7 @@ See also [notebook-ui](https://github.com/salah3x/notebook-ui).
 
   > See [InterpreterResponse](https://github.com/salah3x/notebook-server/blob/master/src/main/java/com/github/salah3x/notebookserver/controller/dtos/InterpreterResponse.java) for more info about these fields.
 
-# Interpreter response codes:
+## Server response codes:
 
 - 200 OK: The interpreter API returns a 200 OK response code in case of success. The response will have the format described above and might containg erros in case of execution failure.
 - 400 BAD_REQUEST: The API might return a 400 BAD_REQUEST as response code in case the request doesnt follow the correct format.
