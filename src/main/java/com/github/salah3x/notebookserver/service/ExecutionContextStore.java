@@ -1,13 +1,11 @@
 package com.github.salah3x.notebookserver.service;
 
-import org.graalvm.polyglot.Context;
-
 /**
  * This class represent a store for execution contexts for the interpreter.
  * This is where contexts are stored, recreated and ultimately removed.
  *
  * Context are kept in a store (ex: in-memory) and removed after
- * being inactive for period time.
+ * being inactive for a period of time.
  */
 public interface ExecutionContextStore {
 
@@ -20,16 +18,7 @@ public interface ExecutionContextStore {
      * @param sessionId Id of the session
      * @return The execution context for this session
      */
-    Context getContext(String sessionId);
-
-    /**
-     * Read the output of the execution from the output or the error
-     * streams of the execution context.
-     *
-     * @param sessionId Id of the session
-     * @return Output of the execution
-     */
-    String readOutput(String sessionId);
+    ExecutionContext getContext(String sessionId);
 
     /**
      * Reset the context of this session.
