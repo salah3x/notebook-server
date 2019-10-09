@@ -1,0 +1,26 @@
+{
+  "groups": [
+    {
+      "name": "interpreter",
+      "type": "com.github.salah3x.notebookserver.config.AppProperties",
+      "sourceType": "com.github.salah3x.notebookserver.config.AppProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "interpreter.execution-timeout",
+      "type": "java.lang.Integer",
+      "description": "The amount of second before cancelling execution",
+      "sourceType": "com.github.salah3x.notebookserver.config.AppProperties",
+      "defaultValue": 5
+    },
+    {
+      "name": "interpreter.session-expires-in",
+      "type": "java.lang.Integer",
+      "description": "The amount of seconds before removing execution contexts from the store of inactive sessions",
+      "sourceType": "com.github.salah3x.notebookserver.config.AppProperties",
+      "defaultValue": 3600
+    }
+  ],
+  "hints": []
+}
