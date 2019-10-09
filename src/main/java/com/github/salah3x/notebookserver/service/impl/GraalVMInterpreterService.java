@@ -33,13 +33,14 @@ public class GraalVMInterpreterService implements InterpreterService {
         }, properties.getExecutionTimeout() * 1000);
         String output;
         try {
-            output = context.eval(lang, code).toString();
+            context.eval(lang, code);
         } catch (PolyglotException e) {
             throw new InterpreterException(e.getMessage());
         } catch (IllegalArgumentException e) {
             throw new LanguageNotSupportedException(e.getMessage());
         }
         timer.cancel();
+        output = this.store.readOutput(sessionId);
         return output;
     }
 }

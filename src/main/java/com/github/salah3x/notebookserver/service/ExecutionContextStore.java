@@ -23,6 +23,15 @@ public interface ExecutionContextStore {
     Context getContext(String sessionId);
 
     /**
+     * Read the output of the execution from the output or the error
+     * streams of the execution context.
+     *
+     * @param sessionId Id of the session
+     * @return Output of the execution
+     */
+    String readOutput(String sessionId);
+
+    /**
      * Reset the context of this session.
      *
      * All data (state) preserved by this context will be lost.

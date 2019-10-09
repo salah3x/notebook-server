@@ -2,7 +2,6 @@ package com.github.salah3x.notebookserver.service.impl;
 
 import com.github.salah3x.notebookserver.config.AppProperties;
 import com.github.salah3x.notebookserver.service.ExecutionContextStore;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -12,6 +11,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayOutputStream;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
@@ -22,22 +22,11 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class InMemoryExecutionContextStore implements ExecutionContextStore {
 
-    @Getter
-    @Setter
-    @AllArgsConstructor
-    private static class ExecutionContext {
-        private Context context;
-        private LocalDateTime lastAccessed;
-    }
-
-    private final AppProperties properties;
-    private final Map<String, ExecutionContext> store = new HashMap<>();
-
     @Override
     public Context getContext(String sessionId) {
         ExecutionContext context = this.store.get(sessionId);
         if (context == null) {
-            context = new ExecutionContext(Context.create(), LocalDateTime.now());
+            context = new ExecutionContext();
             this.store.put(sessionId, context);
         } else {
             context.setLastAccessed(LocalDateTime.now());
@@ -45,9 +34,34 @@ public class InMemoryExecutionContextStore implements ExecutionContextStore {
         return context.getContext();
     }
 
+    private final AppProperties properties;
+    private final Map<String, ExecutionContext> store = new HashMap<>();
+
+    @Override
+    public String readOutput(String sessionId) {
+        ExecutionContext context = this.store.get(sessionId);
+        String output = context.getOutputStream().toString();
+        context.getOutputStream().reset();
+        return output;
+    }
+
     @Override
     public void resetContext(String sessionId) {
-        this.store.put(sessionId, new ExecutionContext(Context.create(), LocalDateTime.now()));
+        this.store.put(sessionId, new ExecutionContext());
+    }
+
+    @Getter
+    @Setter
+    private static class ExecutionContext {
+        private Context context;
+        private LocalDateTime lastAccessed;
+        private ByteArrayOutputStream outputStream;
+
+        ExecutionContext() {
+            this.outputStream = new ByteArrayOutputStream();
+            this.context = Context.newBuilder().out(this.outputStream).err(this.outputStream).build();
+            this.lastAccessed = LocalDateTime.now();
+        }
     }
 
     @Scheduled(fixedDelay = 60 * 1000)

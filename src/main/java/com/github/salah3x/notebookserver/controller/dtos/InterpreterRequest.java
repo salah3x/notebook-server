@@ -16,8 +16,8 @@ public class InterpreterRequest {
      * <p>
      * ex:
      * %js
-     * 1 + 1;
-     * "Hello ".concat("world!");
+     * console.log(1 + 1);
+     * console.log("Hello world!");
      */
     @NotEmpty
     @Pattern(regexp = "%[a-zA-Z]+\\n[\\W\\w]+")
