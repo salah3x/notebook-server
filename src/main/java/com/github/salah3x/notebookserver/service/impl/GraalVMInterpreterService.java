@@ -2,6 +2,7 @@ package com.github.salah3x.notebookserver.service.impl;
 
 import com.github.salah3x.notebookserver.config.AppProperties;
 import com.github.salah3x.notebookserver.exception.InterpreterException;
+import com.github.salah3x.notebookserver.exception.LanguageNotSupportedException;
 import com.github.salah3x.notebookserver.service.ExecutionContextStore;
 import com.github.salah3x.notebookserver.service.InterpreterService;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +36,8 @@ public class GraalVMInterpreterService implements InterpreterService {
             output = context.eval(lang, code).toString();
         } catch (PolyglotException e) {
             throw new InterpreterException(e.getMessage());
+        } catch (IllegalArgumentException e) {
+            throw new LanguageNotSupportedException(e.getMessage());
         }
         timer.cancel();
         return output;
