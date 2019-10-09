@@ -50,15 +50,18 @@ public class InMemoryExecutionContextStore implements ExecutionContextStore {
         this.store.put(sessionId, new ExecutionContext(Context.create(), LocalDateTime.now()));
     }
 
-    @Scheduled(fixedDelay = 10 * 1000)
+    @Scheduled(fixedDelay = 60 * 1000)
     @Async
     @Override
     public void cleanup() {
-        for (String sessionId: this.store.keySet()) {
-            long inactive = ChronoUnit.SECONDS.between(LocalDateTime.now(),  this.store.get(sessionId).getLastAccessed());
-            if (inactive > properties.getSessionExpiresIn())
+        int count = 0;
+        for (String sessionId : this.store.keySet()) {
+            long inactive = ChronoUnit.SECONDS.between(this.store.get(sessionId).getLastAccessed(), LocalDateTime.now());
+            if (inactive > properties.getSessionExpiresIn()) {
                 this.store.remove(sessionId);
+                count++;
+            }
         }
-        log.debug("Cleanup finished");
+        log.info("Sessions cleanup finished, {} sessions deleted.", count);
     }
 }
