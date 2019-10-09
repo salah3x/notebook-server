@@ -29,7 +29,7 @@ public class GraalVMInterpreterService implements InterpreterService {
                 context.close(true);
                 store.resetContext(sessionId);
             }
-        }, properties.executionTimeout * 1000);
+        }, properties.getExecutionTimeout() * 1000);
         String output;
         try {
             output = context.eval(lang, code).toString();

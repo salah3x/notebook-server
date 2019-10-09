@@ -1,8 +1,12 @@
 package com.github.salah3x.notebookserver.config;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+@Getter
+@Setter
 @Component
 @ConfigurationProperties("interpreter")
 public class AppProperties {
@@ -11,10 +15,10 @@ public class AppProperties {
      * The amount of seconds before removing execution contexts
      * from the store of inactive sessions
      */
-    public int sessionExpiresIn = 3600;
+    private int sessionExpiresIn = 3600;
 
     /**
      * The amount of second before cancelling execution
      */
-    public int executionTimeout = 5;
+    private int executionTimeout = 5;
 }

@@ -56,7 +56,7 @@ public class InMemoryExecutionContextStore implements ExecutionContextStore {
     public void cleanup() {
         for (String sessionId: this.store.keySet()) {
             long inactive = ChronoUnit.SECONDS.between(LocalDateTime.now(),  this.store.get(sessionId).getLastAccessed());
-            if ( inactive > properties.sessionExpiresIn)
+            if (inactive > properties.getSessionExpiresIn())
                 this.store.remove(sessionId);
         }
         log.debug("Cleanup finished");
