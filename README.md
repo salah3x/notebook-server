@@ -41,7 +41,7 @@ See also [notebook-ui](https://github.com/salah3x/notebook-ui).
   }
   ```
   > See [InterpreterRequest.java](https://github.com/salah3x/notebook-server/blob/master/src/main/java/com/github/salah3x/notebookserver/controller/dtos/InterpreterRequest.java) for more information about these fields.
-- The code must have the format:
+- The code must have the following format:
   ```
   %[LANG]
   [CODE]
@@ -66,11 +66,25 @@ See also [notebook-ui](https://github.com/salah3x/notebook-ui).
 
   > See [InterpreterResponse](https://github.com/salah3x/notebook-server/blob/master/src/main/java/com/github/salah3x/notebookserver/controller/dtos/InterpreterResponse.java) for more info about these fields.
 
-## Server response codes:
+## Server response codes
 
-- 200 OK: The interpreter API returns a 200 OK response code in case of success. The response will have the format described above and might containg erros in case of execution failure.
-- 400 BAD_REQUEST: The API might return a 400 BAD_REQUEST as response code in case the request doesnt follow the correct format.
-- 500 INTERNAL_SERVER_ERROR: If this happens, it means that something is wrong with the server, just wait for a while and try again.
+- **200 OK**:
+
+  The interpreter API returns a 200 OK response code when the interpreter successfully execute the code.
+
+  The response will have the format described above and might containg erros in case of execution failure.
+
+- **400 BAD_REQUEST**:
+
+  The API might return a 400 BAD_REQUEST as response code in case the request doesnt follow the correct format or the language is not supported.
+
+- **500 INTERNAL_SERVER_ERROR**:
+
+  If this happens, it means that something went wrong with the server, just wait for a while and try again.
+
+## Features
+
+See [release notes](https://github.com/salah3x/notebook-server/releases).
 
 ## Further help
 
