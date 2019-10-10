@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -43,14 +45,14 @@ public class InMemoryExecutionContextStore implements ExecutionContextStore {
     @Async
     @Override
     public void cleanup() {
-        int count = 0;
+        List<String> toRemove = new ArrayList<>();
         for (String sessionId : this.store.keySet()) {
             long inactive = ChronoUnit.SECONDS.between(this.store.get(sessionId).getLastAccessed(), LocalDateTime.now());
             if (inactive > properties.getSessionExpiresIn()) {
-                this.store.remove(sessionId);
-                count++;
+                toRemove.add(sessionId);
             }
         }
-        log.info("Sessions cleanup finished, {} sessions deleted.", count);
+        toRemove.forEach(this.store::remove);
+        log.info("Sessions cleanup finished, {} sessions deleted.", toRemove.size());
     }
 }
