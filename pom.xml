@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.github.salah3x</groupId>
     <artifactId>notebook-server</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.1</version>
     <name>notebook-server</name>
     <description>A simple notebook server that can execute pieces of code in an interpreter</description>
     

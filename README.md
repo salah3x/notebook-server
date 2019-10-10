@@ -27,7 +27,7 @@ See also [notebook-ui](https://github.com/salah3x/notebook-ui).
 
 - Run the jar file:
 
-  `$ java -jar target/notebook-server-0.1.0.jar`
+  `$ java -jar target/notebook-server-0.1.1.jar`
 
 - If all is okay, you should be able to interact with the server in [http://localhost:8080/](http://localhost:8080/)
 
